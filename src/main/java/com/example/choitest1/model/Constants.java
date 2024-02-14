@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public final class Constants {
 
-    public static final String USER_RULE_STUDENT = "STUDENT"; // A:관리자, S:학생, P:교수
-    public static final String USER_RULE_ADMIN = "ADMIN";
-    public static final String USER_RULE_PRO = "PRO";
+    public static final String USER_ROLE_STUDENT = "STUDENT"; // A:관리자, S:학생, P:교수
+    public static final String USER_ROLE_ADMIN = "ADMIN";
+    public static final String USER_ROLE_PRO = "PRO";
 
     public static final int LIMIT_STUDENT_PER_SCHOOL = 30; //학교당 가입할수있는 최대 학생 유저
 

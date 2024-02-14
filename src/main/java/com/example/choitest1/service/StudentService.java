@@ -47,12 +47,12 @@ public class StudentService {
         user = userRepo.findByUserIdAndUserPwdAndUseYnAndRoleAndSchoolSeqForUpdate(user.getUserId(), user.getUserPwd(), "Y", user.getRole(), user.getSchoolSeq()).orElseThrow(() -> new CustomException(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "유저 정보를 확인해주세요.")); //비관적 잠금
 
         switch (user.getRole()) {
-            case Constants.USER_RULE_PRO:
+            case Constants.USER_ROLE_PRO:
                 //미승인 교수 예외 처리
                 if (user.getStateCd().equals("2"))
                     throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "승인되지 않은 교수님입니다.");
                 break;
-            case Constants.USER_RULE_STUDENT:
+            case Constants.USER_ROLE_STUDENT:
                 List<AccessLog> temp = acessRepo.findByUserSeqNotAndSchoolSeqAndExpiredAtAfter(user.getUserSeq(), user.getSchoolSeq(), new Timestamp(System.currentTimeMillis()));
                 if (temp.size() >= Constants.LIMIT_STUDENT_ACCESS) {
                     //해당학교에 본인 제외하고 10명 넘게 이미 로그인 완료를 했다.

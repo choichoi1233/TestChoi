@@ -7,14 +7,12 @@ import com.example.choitest1.model.User;
 import com.example.choitest1.service.SchoolService;
 import com.example.choitest1.service.StudyService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +24,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/pro")
+@Log4j2
 public class ProApiController {
-    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final SchoolService schoolService;
     private final StudyService studyService;
@@ -39,19 +37,11 @@ public class ProApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/insStudyproc")
+    @PostMapping("/insStudyproc")
     public ResponseEntity<ResultVo<Study>> insStudyproc(@RequestBody Study study, @RequestAttribute("user") User user) {
         log.info("{}", study);
         ResultVo<Study> result = null;
-        try {
-            result = new ResultVo<Study>("", "S", studyService.insStudyproc(study, user));
-        } catch (CustomException e) {
-            result = new ResultVo<Study>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<Study>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<Study>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<Study>>(result, HttpStatus.OK);
-        }
+        result = new ResultVo<Study>("", "S", studyService.insStudyproc(study, user));
         return new ResponseEntity<ResultVo<Study>>(result, HttpStatus.CREATED);
     }
 
@@ -61,24 +51,16 @@ public class ProApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/studentList")
+    @PostMapping("/studentList")
     public ResponseEntity<ResultVo<List<User>>> studentList(@RequestAttribute("user") User user) {
         log.info("{}", user);
         ResultVo<List<User>> result = null;
-        try {
-            List<Study> studies = studyService.findByProUserUserSeq(user);
-            List<User> students = new ArrayList<>();
-            for (Study study : studies) {
-                students.addAll(study.getStudentUsers());
-            }
-            result = new ResultVo<List<User>>("", "S", students);
-        } catch (CustomException e) {
-            result = new ResultVo<List<User>>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<User>>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<List<User>>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<User>>>(result, HttpStatus.OK);
+        List<Study> studies = studyService.findByProUserUserSeq(user);
+        List<User> students = new ArrayList<>();
+        for (Study study : studies) {
+            students.addAll(study.getStudentUsers());
         }
+        result = new ResultVo<List<User>>("", "S", students);
         return new ResponseEntity<ResultVo<List<User>>>(result, HttpStatus.OK);
     }
 
@@ -88,22 +70,11 @@ public class ProApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/studyList")
+    @PostMapping("/studyList")
     public ResponseEntity<ResultVo<List<Study>>> studyList(@RequestAttribute("user") User user) {
         log.info("{}", user);
         ResultVo<List<Study>> result = null;
-        try {
-
-            result = new ResultVo<List<Study>>("", "S", studyService.getStudyList(user));
-        } catch (CustomException e) {
-            result = new ResultVo<List<Study>>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<List<Study>>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        }
+        result = new ResultVo<List<Study>>("", "S", studyService.getStudyList(user));
         return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
     }
-
-
 }

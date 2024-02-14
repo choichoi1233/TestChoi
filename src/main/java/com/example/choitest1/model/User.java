@@ -57,7 +57,7 @@ public class User {
     protected void onCreate() {
         if (useYn == null) useYn = "Y";
         updatedAt = createdAt = new Timestamp(System.currentTimeMillis());
-        stateCd = (Objects.equals(role, Constants.USER_RULE_PRO) ? "2" : "1");
+        stateCd = (Objects.equals(role, Constants.USER_ROLE_PRO) ? "2" : "1");
     }
 
     @PreUpdate

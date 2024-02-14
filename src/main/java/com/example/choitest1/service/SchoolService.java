@@ -57,7 +57,7 @@ public class SchoolService {
             throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "필수 데이터가 없습니다.");
 
         String targetStatus = user.getStateCd();
-        user = userRepo.findByUserIdAndRole(user.getUserId(), Constants.USER_RULE_PRO).orElseThrow(() -> new CustomException(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "교수님 정보가 없습니다."));
+        user = userRepo.findByUserIdAndRole(user.getUserId(), Constants.USER_ROLE_PRO).orElseThrow(() -> new CustomException(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "교수님 정보가 없습니다."));
 
         user.setStateCd(targetStatus);
         return userRepo.save(user);

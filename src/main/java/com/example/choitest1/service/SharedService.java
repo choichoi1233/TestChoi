@@ -41,7 +41,7 @@ public class SharedService {
     public User studentIns(User user) {
 
 
-        if (!StringUtils.hasText(user.getRole()) || !user.getRole().equals(Constants.USER_RULE_STUDENT))
+        if (!StringUtils.hasText(user.getRole()) || !user.getRole().equals(Constants.USER_ROLE_STUDENT))
             throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "학생 유효성 데이터가 입력되지 않았습니다.");
         userCommoninfoCheck(user);
         //회원가입 직전 비관적잠금으로 아래 매소드에서 잠깐 막음
@@ -64,7 +64,7 @@ public class SharedService {
      */
     @Transactional
     public User proIns(User user) {
-        if (!StringUtils.hasText(user.getRole()) || !user.getRole().equals(Constants.USER_RULE_PRO))
+        if (!StringUtils.hasText(user.getRole()) || !user.getRole().equals(Constants.USER_ROLE_PRO))
             throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR.toString(), "교수님 유효성 데이터가 입력되지 않았습니다.");
 
         userCommoninfoCheck(user);

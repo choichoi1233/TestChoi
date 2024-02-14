@@ -7,14 +7,12 @@ import com.example.choitest1.model.User;
 import com.example.choitest1.service.SchoolService;
 import com.example.choitest1.service.StudyService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,9 +24,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/student")
+@Log4j2
 public class StudentApiController {
-    private final Logger log = LoggerFactory.getLogger(getClass());
-
     private final SchoolService schoolService;
     private final StudyService studyService;
 
@@ -39,20 +36,12 @@ public class StudentApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/insStudyApplyProc")
+    @PostMapping("/insStudyApplyProc")
     public ResponseEntity<ResultVo<String>> insStudyApplyProc(@RequestBody Study study, @RequestAttribute("user") User user) {
         log.info("{}", study);
         ResultVo<String> result = null;
-        try {
-            studyService.insStudyApplyProc(study, user);
-            result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
-        } catch (CustomException e) {
-            result = new ResultVo<String>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<String>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<String>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<String>>(result, HttpStatus.OK);
-        }
+        studyService.insStudyApplyProc(study, user);
+        result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
         return new ResponseEntity<ResultVo<String>>(result, HttpStatus.CREATED);
     }
 
@@ -63,20 +52,12 @@ public class StudentApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/insStudyApplyCancelProc")
+    @PostMapping("/insStudyApplyCancelProc")
     public ResponseEntity<ResultVo<String>> insStudyApplyCancelProc(@RequestBody Study study, @RequestAttribute("user") User user) {
         log.info("{}", study);
         ResultVo<String> result = null;
-        try {
-            studyService.insStudyApplyCancelProc(study, user);
-            result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
-        } catch (CustomException e) {
-            result = new ResultVo<String>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<String>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<String>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<String>>(result, HttpStatus.OK);
-        }
+        studyService.insStudyApplyCancelProc(study, user);
+        result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
         return new ResponseEntity<ResultVo<String>>(result, HttpStatus.CREATED);
     }
 
@@ -87,19 +68,11 @@ public class StudentApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/myStudyList")
+    @PostMapping("/myStudyList")
     public ResponseEntity<ResultVo<List<Study>>> myStudyList(@RequestAttribute("user") User user) {
         log.info("{}", user);
         ResultVo<List<Study>> result = null;
-        try {
-            result = new ResultVo<List<Study>>("", "S", studyService.GetMyStudyList(user));
-        } catch (CustomException e) {
-            result = new ResultVo<List<Study>>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<List<Study>>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        }
+        result = new ResultVo<List<Study>>("", "S", studyService.GetMyStudyList(user));
         return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.CREATED);
     }
 
@@ -112,19 +85,11 @@ public class StudentApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/studyList")
+    @PostMapping("/studyList")
     public ResponseEntity<ResultVo<List<Study>>> studyList(@RequestAttribute("user") User user) {
         log.info("{}", user);
         ResultVo<List<Study>> result = null;
-        try {
-            result = new ResultVo<List<Study>>("", "S", studyService.GetSchoolStudyList(user));
-        } catch (CustomException e) {
-            result = new ResultVo<List<Study>>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<List<Study>>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        }
+        result = new ResultVo<List<Study>>("", "S", studyService.GetSchoolStudyList(user));
         return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.CREATED);
     }
 

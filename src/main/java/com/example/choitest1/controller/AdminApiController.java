@@ -9,10 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,20 +35,12 @@ public class AdminApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/insschoolproc")
+    @PostMapping("/insschoolproc")
     public ResponseEntity<ResultVo<School>> insschoolproc(@RequestBody School school, @RequestAttribute("user") User user) {
         ResultVo<School> result = null;
-        try {
-            school.setCreateUserId(user.getUserId());
-            school = schoolService.insSchoolProc(school);
-            result = new ResultVo<School>("", "S", school);
-        } catch (CustomException e) {
-            result = new ResultVo<School>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<School>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<School>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<School>>(result, HttpStatus.OK);
-        }
+        school.setCreateUserId(user.getUserId());
+        school = schoolService.insSchoolProc(school);
+        result = new ResultVo<School>("", "S", school);
         return new ResponseEntity<ResultVo<School>>(result, HttpStatus.CREATED);
     }
 
@@ -63,16 +52,11 @@ public class AdminApiController {
      * @param user
      * @return
      */
-    @RequestMapping("/changeProStatus")
+    @PostMapping("/changeProStatus")
     public ResponseEntity<ResultVo<String>> changeProStatus(@RequestBody User user) {
         ResultVo<String> result = null;
-        try {
-            schoolService.changeProStatus(user);
-            result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
-        } catch (CustomException e) {
-            result = new ResultVo<String>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<String>>(result, HttpStatus.OK);
-        }
+        schoolService.changeProStatus(user);
+        result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
         return new ResponseEntity<ResultVo<String>>(result, HttpStatus.CREATED);
     }
 
@@ -83,16 +67,11 @@ public class AdminApiController {
      * @return
      * @param에 학교의 수강신청시작 ~ 수강신청종료 일 지정
      */
-    @RequestMapping("/changeSchoolApplyDt")
+    @PostMapping("/changeSchoolApplyDt")
     public ResponseEntity<ResultVo<String>> changeSchoolApplyDt(@RequestBody School school) {
         ResultVo<String> result = null;
-        try {
-            schoolService.changeSchoolApplyDt(school);
-            result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
-        } catch (CustomException e) {
-            result = new ResultVo<String>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<String>>(result, HttpStatus.OK);
-        }
+        schoolService.changeSchoolApplyDt(school);
+        result = new ResultVo<String>("", "S", "정상적으로 처리되었습니다.");
         return new ResponseEntity<ResultVo<String>>(result, HttpStatus.CREATED);
     }
 
@@ -102,19 +81,10 @@ public class AdminApiController {
      *
      * @return
      */
-    @RequestMapping("/schoolList")
+    @PostMapping("/schoolList")
     public ResponseEntity<ResultVo<List<School>>> schoolList() {
         ResultVo<List<School>> result = null;
-        try {
-
-            result = new ResultVo<List<School>>("", "S", schoolService.schoolList());
-        } catch (CustomException e) {
-            result = new ResultVo<List<School>>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<School>>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<List<School>>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<School>>>(result, HttpStatus.OK);
-        }
+        result = new ResultVo<List<School>>("", "S", schoolService.schoolList());
         return new ResponseEntity<ResultVo<List<School>>>(result, HttpStatus.CREATED);
     }
 
@@ -126,18 +96,10 @@ public class AdminApiController {
      *
      * @return
      */
-    @RequestMapping("/userList")
+    @PostMapping("/userList")
     public ResponseEntity<ResultVo<List<User>>> userList(@RequestBody User user) {
         ResultVo<List<User>> result = null;
-        try {
-            result = new ResultVo<List<User>>("", "S", studentService.userList(user));
-        } catch (CustomException e) {
-            result = new ResultVo<List<User>>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<User>>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<List<User>>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<User>>>(result, HttpStatus.OK);
-        }
+        result = new ResultVo<List<User>>("", "S", studentService.userList(user));
         return new ResponseEntity<ResultVo<List<User>>>(result, HttpStatus.CREATED);
     }
 
@@ -146,18 +108,10 @@ public class AdminApiController {
      *
      * @return
      */
-    @RequestMapping("/studyList")
+    @PostMapping("/studyList")
     public ResponseEntity<ResultVo<List<Study>>> studyList() {
         ResultVo<List<Study>> result = null;
-        try {
-            result = new ResultVo<List<Study>>("", "S", studyService.studyList());
-        } catch (CustomException e) {
-            result = new ResultVo<List<Study>>(e.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        } catch (Exception e2) {
-            result = new ResultVo<List<Study>>(e2.getLocalizedMessage(), "F", null);
-            return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.OK);
-        }
+        result = new ResultVo<List<Study>>("", "S", studyService.studyList());
         return new ResponseEntity<ResultVo<List<Study>>>(result, HttpStatus.CREATED);
     }
 }
