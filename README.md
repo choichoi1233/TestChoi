@@ -1,6 +1,14 @@
 Java version : 17
 springframework.boot : 3.2.2
 Db : Mysql , Jpa
+Db Server info
+spring.datasource.url=jdbc:mysql://211.45.162.98:3306/Reduiler
+spring.datasource.username=reduiler
+spring.datasource.password=rebuilder!@34
+
+
+
+
 
 전제 조건
 • 관리자는 학교를 등록할 수 있습니다.   
