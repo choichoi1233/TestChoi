@@ -1,3 +1,7 @@
+Java version : 17
+springframework.boot : 3.2.2
+Db : Mysql , Jpa
+
 전제 조건
 • 관리자는 학교를 등록할 수 있습니다.   
 • 각 최종 사용자는 자신의 계정을 통해 로그인이 가능해야 합니다. 
