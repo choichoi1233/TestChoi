@@ -2,6 +2,8 @@
 
 JAVA : 17    / SpringBoot : 3.2.2  / DB :  Mysql , Jpa 
 
+* 스웨거 :  /swagger-ui/index.html
+
 ## 프로젝트 서비스 소개
 
 전제 조건
