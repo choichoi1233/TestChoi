@@ -1,17 +1,11 @@
-Java version : 17
-springframework.boot : 3.2.2
-Db : Mysql , Jpa
-Db Server info
-spring.datasource.url=jdbc:mysql://211.45.162.98:3306/Reduiler
-spring.datasource.username=reduiler
-spring.datasource.password=rebuilder!@34
+## 프로젝트 소개
 
+JAVA : 17    / SpringBoot : 3.2.2  / DB :  Mysql , Jpa 
 
-
-
+## 프로젝트 서비스 소개
 
 전제 조건
-• 관리자는 학교를 등록할 수 있습니다.   
+* 관리자는 학교를 등록할 수 있습니다.   
 • 각 최종 사용자는 자신의 계정을 통해 로그인이 가능해야 합니다. 
 ◦ 계정의 아이디는 이메일 형식이어야 합니다. (메일을 통한 알림을 위해)  
 ◦ 관리자를 제외한 각 최종 사용자는 스스로 계정을 발급할 수 있어야 합니다. 
